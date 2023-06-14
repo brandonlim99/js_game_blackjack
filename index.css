@@ -27,3 +27,11 @@ button{
     border: none;
     border-radius: 9px;
 }
+
+#dealer-el, #dealer-sum-el, #card-el, #sum-el{
+    font-size: 40px;
+}
+
+#user-stats{
+    color: lightblue;
+}

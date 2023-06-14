@@ -1,5 +1,6 @@
 // set variables
 let user = {
+    name: "",
     cards: [],
     sum: 0,
     chips: 100
@@ -9,7 +10,7 @@ let dealer = {
     cards: [],
     sum: 0
 }
-
+let playerBet
 let isAlive = false
 let dealerAlive = true
 let hasBlackJack = false // blackjack happens when sum = 21
@@ -18,6 +19,7 @@ let sumEl = document.querySelector("#sum-el")
 let initialEl = document.querySelector("#initial-el")
 let dealerEl = document.querySelector("#dealer-el")
 let dealerSumEl = document.querySelector("#dealer-sum-el")
+let userStatsEl = document.querySelector("#user-stats")
 
 // functions
 function getRandomNumber(){
@@ -58,16 +60,19 @@ function aceElevenOrOne(person){
 
 function startGame(){
     //player variables
-    let playerBet 
-    while(playerBet != null){
+    let playerName = prompt("Enter your name")
+    user.name = playerName
+
+    playerBet = prompt("How much do you want to bet?")
+
+    while(playerBet > user.chips){
+        alert("Bet amount can't be more than current number of chips")
         playerBet = prompt("How much do you want to bet?")
-        if(playerBet > user.chips){
-            alert("Bet amount can't be more than current number of chips")
-        }
     }
+
+
     isAlive = true
     hasBlackJack = false
-    hasShownHand = false 
     let firstCard = getRandomNumber()
     let secondCard = getRandomNumber()
     user.cards = [firstCard, secondCard]
@@ -116,7 +121,11 @@ function renderGame(){
     else{
         isAlive = false
         initialEl.textContent = "You are out!"
+        user.chips -= playerBet
     }
+
+    //render number of chips
+    renderChips()
     
 }
 
@@ -144,11 +153,21 @@ function showHand(){
 
     if(dealerAlive && dealer.sum>user.sum){
         initialEl.textContent = "You lost!"
+        user.chips -= playerBet
+        renderChips()
+
     } else if(dealerAlive && dealer.sum === user.sum){
         initialEl.textContent = "It's a tie!"
     } else{
         initialEl.textContent = "You win!"
+        user.chips += playerBet
+        console.log(user.chips)
+        renderChips()
     }
     
+}
+
+function renderChips(){
+    userStatsEl.textContent = `${user.name}: ${user.chips} chips`
 }
 
