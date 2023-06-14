@@ -7,5 +7,4 @@ This blackjack game features:
 Will feature:
 - Winning will award you money depending on your win criteria (Normal winning against dealer gives you x1, blackjack will be x2)
 - A dealer who will fight with your hand
-- Number of times you won
-- Able to input your name
+- Able to input your name and show your chips
