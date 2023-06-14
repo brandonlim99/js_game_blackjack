@@ -1,7 +1,8 @@
 // set variables
 let user = {
     cards: [],
-    sum: 0
+    sum: 0,
+    chips: 100
 }
 
 let dealer = {
@@ -57,6 +58,13 @@ function aceElevenOrOne(person){
 
 function startGame(){
     //player variables
+    let playerBet 
+    while(playerBet != null){
+        playerBet = prompt("How much do you want to bet?")
+        if(playerBet > user.chips){
+            alert("Bet amount can't be more than current number of chips")
+        }
+    }
     isAlive = true
     hasBlackJack = false
     hasShownHand = false 
