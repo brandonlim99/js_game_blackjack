@@ -58,18 +58,14 @@ function aceElevenOrOne(person){
 
 }
 
-function startGame(){
-    //player variables
-    let playerName = prompt("Enter your name")
-    user.name = playerName
-
+function newGame(){
     playerBet = prompt("How much do you want to bet?")
+    playerBet = Number(playerBet)
 
-    while(playerBet > user.chips){
+    while(playerBet > user.chips && playerBet != 0 && playerBet != null){
         alert("Bet amount can't be more than current number of chips")
         playerBet = prompt("How much do you want to bet?")
     }
-
 
     isAlive = true
     hasBlackJack = false
@@ -83,9 +79,33 @@ function startGame(){
     let dealerSecondCard = getRandomNumber()
     dealer.cards = [dealerFirstCard, dealerSecondCard]
     dealer.sum = dealerFirstCard + dealerSecondCard
-    
+
     //render game
     renderGame()
+
+    //hide new game btn
+    var hideNewGameBtn = document.querySelector("#newGame")
+    hideNewGameBtn.style.display = "none"
+
+    //shows the new card & show hand buttons
+    var showNewCardBtn = document.querySelector("#newCard")
+    var showHandBtn = document.querySelector("#showHand")
+
+    showNewCardBtn.style.display = ""
+    showHandBtn.style.display = ""
+}
+
+function startGame(){
+    //player variables
+    let playerName = prompt("Enter your name")
+    user.name = playerName
+
+    //new game
+    newGame()
+
+    //remove startgame btn
+    var hideStartGameBtn = document.querySelector("#startGame")
+    hideStartGameBtn.style.display = "none"
 }
 
 function renderGame(){
@@ -122,6 +142,9 @@ function renderGame(){
         isAlive = false
         initialEl.textContent = "You are out!"
         user.chips -= playerBet
+
+        //end of game
+        endOfGame()
     }
 
     //render number of chips
@@ -165,9 +188,21 @@ function showHand(){
         renderChips()
     }
     
+    //end of game
+    endOfGame()
 }
 
 function renderChips(){
     userStatsEl.textContent = `${user.name}: ${user.chips} chips`
 }
 
+function endOfGame(){
+    var showNewGameBtn = document.querySelector("#newGame")
+    showNewGameBtn.style.display = ""
+
+    var hideNewCardBtn = document.querySelector("#newCard")
+    var hideShowHandBtn = document.querySelector("#showHand")
+
+    hideNewCardBtn.style.display = "none"
+    hideShowHandBtn.style.display = "none"
+}
