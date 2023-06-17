@@ -10,4 +10,3 @@ This blackjack game features:
 
 Will feature:
 - Better dealer decisions
-- Better UI flow 
