@@ -9,4 +9,7 @@ This blackjack game features:
 
 
 Will feature:
-- Better dealer decisions
+- Better dealer decisions (Draw if dealer's starting hand < player's hand)
+- Result tracker at the side
+- Restart the game if chips = 0
+- Show current chips in inventory
