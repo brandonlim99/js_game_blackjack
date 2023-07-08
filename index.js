@@ -3,7 +3,8 @@ let user = {
     name: "",
     cards: [],
     sum: 0,
-    chips: 100
+    chips: 100,
+    results: []
 }
 
 let dealer = {
@@ -20,6 +21,7 @@ let initialEl = document.querySelector("#initial-el")
 let dealerEl = document.querySelector("#dealer-el")
 let dealerSumEl = document.querySelector("#dealer-sum-el")
 let userStatsEl = document.querySelector("#user-stats")
+let resultEl = document.querySelector("#result-el")
 
 // functions
 function getRandomNumber(){
@@ -142,6 +144,7 @@ function renderGame(){
         isAlive = false
         initialEl.textContent = "You are out!"
         user.chips -= playerBet
+        user.results.push("L")
 
         //end of game
         endOfGame()
@@ -162,13 +165,20 @@ function newCard(){
 }
 
 function showHand(){
+    //reset after every game
+    dealerAlive = true
 
+    //logic behind dealer getting new cards
     while(dealer.sum<21 && dealer.sum !== 21){
-        var newDealerCard = getRandomNumber()
-        dealer.sum += newDealerCard
-        dealer.cards.push(newDealerCard)
-        renderGame()
-    }
+            if(dealer.sum>user.sum && dealer.sum<22){
+                break
+            }
+            var newDealerCard = getRandomNumber()
+            dealer.sum += newDealerCard
+            dealer.cards.push(newDealerCard)
+            renderGame()
+        }
+        
 
     if(dealer.sum > 21){
         dealerAlive = false
@@ -178,15 +188,19 @@ function showHand(){
         initialEl.textContent = "You lost!"
         user.chips -= playerBet
         renderChips()
+        user.results.push("L")
 
     } else if(dealerAlive && dealer.sum === user.sum){
         initialEl.textContent = "It's a tie!"
+        user.results.push("T")
     } else{
         initialEl.textContent = "You win!"
         user.chips += playerBet
-        console.log(user.chips)
         renderChips()
+        user.results.push("W")
     }
+
+    console.log(user.results)
     
     //end of game
     endOfGame()
@@ -197,6 +211,13 @@ function renderChips(){
 }
 
 function endOfGame(){
+    resultEl.textContent = "Game Results: "
+    //show the game results & streak
+    for (let i=0; i<user.results.length; i++){
+        resultEl.textContent += user.results[i] + " "
+    }
+
+    // show new game and hide new card & show hand btns
     var showNewGameBtn = document.querySelector("#newGame")
     showNewGameBtn.style.display = ""
 
