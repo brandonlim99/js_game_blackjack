@@ -13,4 +13,6 @@ This blackjack game features:
 
 Will feature:
 - Restart the game if chips = 0
-- Show current chips in inventory
+- Instead of number, show the image of the card
+- Hide the dealer's cards, once showhand is pressed then reveal the cards
+
