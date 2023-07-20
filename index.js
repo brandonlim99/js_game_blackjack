@@ -61,7 +61,7 @@ function aceElevenOrOne(person){
 }
 
 function newGame(){
-    playerBet = prompt("How much do you want to bet?")
+    playerBet = prompt(`How much do you want to bet? Currently you have ${user.chips} chips!`)
     playerBet = Number(playerBet)
 
     while(playerBet > user.chips && playerBet != 0 && playerBet != null){
